@@ -1,0 +1,22 @@
+<!-- prettier-ignore -->
+{% extends "base.html" %} 
+
+{% block header_title %}{{title}} - {{book.title}}{% endblock header_title %}
+
+{% block content %}
+
+<div class="w-75 mx-auto">
+  <h3 class="mb-4">{{title}} for {{book.title}}</h3>
+
+  {% load crispy_forms_tags %}
+
+  <form method="post">
+    {% csrf_token %} {{form|crispy}}
+
+    <div class="d-flex justify-content-end my-4">
+      <input class="btn btn-primary" type="submit" value="Submit" />
+    </div>
+  </form>
+</div>
+
+{% endblock content %}

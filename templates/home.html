@@ -1,0 +1,71 @@
+<!-- prettier-ignore -->
+{% extends "base.html" %} 
+
+{% block content %}
+
+<div class="px-3">
+  <div>
+    {% if user.is_authenticated %}
+    <h3>Hello, {{user.first_name}} {{user.last_name}}</h3>
+    <h5>Your available credits: <b>{{credits.credit}}</b></h5>
+    {% else %}
+    <h3>Welcome to the Digital Library</h3>
+    <h5 class="mb-5">
+      Please
+      <a href="{% url 'login' %}" class="text-decoration-none text-black"
+        >login</a
+      >/<a href="{% url 'register' %}" class="text-decoration-none text-black"
+        >register</a
+      >
+      to borrow books
+    </h5>
+    {% endif %}
+  </div>
+
+  <div class="{% if user.is_authenticated %} mt-5 {% else %} mt-3 {% endif %}">
+    <h5>Filter Books</h5>
+    <div>
+      <a
+        href="{% url 'home' %}"
+        class="btn btn-sm fw-bold m-1"
+        style="background-color: #e0cffc; color: #3d0a91"
+        >All</a
+      >
+      {% for category in categories %}
+      <a
+        href="{% url 'filter_category' category.slug %}"
+        class="btn btn-sm fw-bold m-1"
+        style="background-color: #e0cffc; color: #3d0a91"
+        >{{category.name}}</a
+      >
+      {% endfor %}
+    </div>
+
+    <div class="my-5">
+      <h3 class="mb-3">Books ({{books|length}})</h3>
+      <div class="row g-5">
+        {% for book in books %}
+        <div class="col-3">
+          <div class="card">
+            <img
+              src="/{{book.image}}"
+              class="card-img-top"
+              style="height: 400px"
+              alt="{{book.title}}"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{book.title | truncatewords:4}}</h5>
+              <p class="card-text">{{book.description | truncatewords:16}}</p>
+              <a href="{% url 'details' book.id %}" class="btn btn-primary"
+                >See Details</a
+              >
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,13 @@
+<h3>Hello {{user.first_name}} {{user.last_name}}</h3>
+
+<br />
+
+<h3>You have borrowed a new book.</h3>
+<p><b>Title: </b>{{borrow_record.book.title}}</p>
+<p><b>Price: </b>{{borrow_record.book.price}} Credits</p>
+<p><b>Borrowed On: </b>{{borrow_record.timestamp|date:"l, F j, Y g:i A"}}</p>
+
+<br />
+
+<p>Regards</p>
+<p>Digital Library</p>

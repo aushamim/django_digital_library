@@ -1,0 +1,28 @@
+<!-- prettier-ignore -->
+{% extends "base.html" %} 
+
+{% block header_title %}{{title}} - {{review.book.title}}{% endblock header_title %}
+
+{% block content %}
+
+<div class="px-3 row">
+  <div class="col-3">
+    <img
+      class="w-100 rounded"
+      src="/{{review.book.image}}"
+      alt="{{review.book.title}}"
+    />
+  </div>
+  <div class="col-9">
+    <h6 class="mb-0 text-muted">Title</h6>
+    <h3>{{review.book.title}}</h3>
+
+    <h6 class="mt-4 mb-1 text-muted">Review By</h6>
+    <h4>{{review.user.first_name}} {{review.user.last_name}}</h4>
+
+    <h6 class="mt-4 mb-1 text-muted">Review</h6>
+    <p>{{review.review}}</p>
+  </div>
+</div>
+
+{% endblock content %}

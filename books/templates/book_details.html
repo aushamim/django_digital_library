@@ -1,0 +1,75 @@
+<!-- prettier-ignore -->
+{% extends "base.html" %} 
+
+{% block header_title %}{{title}} - {{object.title}}{% endblock header_title %}
+
+{% block content %}
+
+<div class="px-3 row">
+  <div class="col-3">
+    <img class="w-100 rounded" src="/{{object.image}}" alt="{{object.title}}" />
+  </div>
+  <div class="col-9">
+    <h6 class="mb-0 text-muted">Title</h6>
+    <h3>{{object.title}}</h3>
+
+    <h6 class="mt-4 mb-1 text-muted">Description</h6>
+    <h6>{{object.description}}</h6>
+
+    <h6 class="mt-4 mb-2 text-muted">Categories</h6>
+    {% for category in object.categories.all %}
+    <button
+      class="btn btn-sm fw-bold m-1"
+      style="background-color: #e0cffc; color: #3d0a91"
+    >
+      {{category.name}}
+    </button>
+    {% endfor %}
+
+    <h6 class="mt-4 mb-0 text-muted">Price</h6>
+    <h3>{{object.price}}</h3>
+
+    <a href="{% url 'borrow' object.id %}" class="btn btn-success fw-bold mt-4"
+      >Borrow</a
+    >
+  </div>
+
+  <div class="my-5">
+    <h3 class="mb-3">Reviews ({{reviews|length}})</h3>
+    <div class="row g-5">
+      {% for review in reviews %}
+      <div class="col-6">
+        <div class="card">
+          <div class="row g-2">
+            <div class="col-3">
+              <img
+                src="/{{review.book.image}}"
+                class="card-img-top rounded w-100"
+                alt="{{review.book.title}}"
+              />
+            </div>
+            <div class="col-9">
+              <div class="card-body">
+                <h5 class="card-title">Review of {{review.book.title}}</h5>
+                <h6 class="text-muted">
+                  By {{review.user.first_name}} {{review.user.last_name}}
+                </h6>
+                <p class="card-text mt-3">
+                  {{review.review | truncatewords:30}}
+                </p>
+                <a
+                  href="{% url 'review_full' review.id %}"
+                  class="btn btn-primary"
+                  >Read More</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

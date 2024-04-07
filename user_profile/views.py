@@ -62,7 +62,7 @@ class Logout(LogoutView):
 
     def get_success_url(self):
         messages.success(self.request, "Logged Out Successfully")
-        return reverse_lazy("home")
+        return redirect("home")
 
 
 class AddCreditsView(LoginRequiredMixin, CreateView):
